@@ -94,6 +94,7 @@ $$
 ## Ejemplo: Base de datos `diamond` de la librería `UsingR` 
 
 Los datos son:
+
 * Precio de los diamantes (en dólares de Singapur)
 * Peso de los diamantes (en quilates)
 * Quilate = medida estándar del peso de un diamante = 0,2 $g$
