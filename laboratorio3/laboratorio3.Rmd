@@ -1,19 +1,21 @@
 ---
 title: "Laboratorio Nº3"
-author: "Profesores: Ramón H. Cornejo-Muñoz y Felipe Rojas</br>Profesor Ayudante de Laboratorio: Mauricio Vargas</br>Ayudantes: Franco Mansilla y Mauricio Díaz"
-date: "26 de agosto de 2015"
-highlighter: highlight.js
-output: html_document
-job: Universidad Nacional Andrés Bello
-mode: selfcontained
-hitheme: tomorrow
 subtitle: Análisis de Datos
+author: "Mauricio Vargas"
+highlighter: highlight.js
+job: Universidad Nacional Andrés Bello
+logo        : logounab.png
+hitheme: tomorrow
 framework: io2012
 url:
-  assets: ../../assets
-  lib: ../../librariesNew
+  assets: ../assets
+  lib: ../libraries
 widgets: mathjax
+mode        : selfcontained # {standalone, draft}
+<!-- knit : slidify::knit2slides --> 
+knit : slidify::knit2slides
 ---
+
 ```{r setup, cache = FALSE, echo = FALSE, message = FALSE, warning = FALSE, tidy = FALSE}
 # make this an external chunk that can be included in any file
 library(knitr) 
@@ -31,12 +33,9 @@ knit_hooks$set(inline = function(x) {
 knit_hooks$set(plot = knitr:::hook_plot_html)
 ```
 
-# Repasando lo ya visto
-
 ## Modelo de Regresión Básico
 * Mínimos cuadrados es una herramienta de estimación.
-* ¿Cómo se usa para realizar inferencia?
-* Para esto se desarrolla un modelo probabilístico de regresión lineal
+* Para realizar inferencia se desarrolla un modelo probabilístico de regresión lineal
 $$
 Y_i = \beta_0 + \beta_1 X_i + \varepsilon_{i}
 $$
@@ -48,7 +47,9 @@ $$
 * $E[Y ~|~ X = x] = \beta_0 + \beta_1 x$
 * $Var(Y ~|~ X = x) = \sigma^2$
 
-## Interpretación de los coeficientes de regresión 
+---
+
+## Interpretación de los coeficientes (1)
 
 ### Intercepto
 * $\beta_0$ es el valor esperado del output cuando el input es 0
@@ -64,6 +65,10 @@ Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i
 $$
 Entonces, si desplazamos $X$ en $a$ unidades cambia el intercepto pero no la pendiente.  menudo $a$ se fija en $\bar X$ tal que  el intercepto se interpreta como la respuesta esperada en el valor promedio de $X$.
 
+---
+
+## Interpretación de los coeficientes (2)
+
 ### Pendiente
 
 * $\beta_1$ es el cambio esperado en el output cuando el input cambia en una unidad
@@ -77,8 +82,19 @@ Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i
 = \beta_0 + \frac{\beta_1}{a} (X_i a) + \varepsilon_i
 = \beta_0 + \tilde \beta_1 (X_i a) + \varepsilon_i
 $$
-* Entonces, la multiplicación de $X$ por un factor $a$ resulta en que se divide el coeficiente por el mismo factor $a$. 
-* Ejemplo: $X$ es la estatura en $m$ e $Y$ es el peso en $kg$. Entonces $\beta_1$ es $kg/m$. Convirtiendo $X$ en $cm$ implica multiplicar $X$ por $100 cm/m$. Para obtener $\beta_1$ en las unidades correctas, tenemos que dividir por $100 cm /m$ y así se tendrán las unidades correctas. 
+* Entonces, la multiplicación de $X$ por un factor $a$ resulta en que se divide el coeficiente por el mismo factor $a$.
+* Si queremos predecir el output dado un valor del input, digamos $X$, el modelo de regresión predice
+  $$
+  \hat \beta_0 + \hat \beta_1 X
+  $$
+
+---
+
+## Interpretación de los coeficientes (3)
+
+### Ejemplo
+
+* Si $X$ es la estatura en $m$ e $Y$ es el peso en $kg$. Entonces $\beta_1$ es $kg/m$. Convirtiendo $X$ en $cm$ implica multiplicar $X$ por $100 cm/m$. Para obtener $\beta_1$ en las unidades correctas, tenemos que dividir por $100 cm /m$ y así se tendrán las unidades correctas. 
 $$
 X m \times \frac{100cm}{m} = (100 X) cm
 ~~\mbox{y}~~
@@ -86,23 +102,23 @@ X m \times \frac{100cm}{m} = (100 X) cm
 \left(\frac{\beta_1}{100}\right)\frac{kg}{cm}
 $$
 
-## Usando los coeficientes de regresión en una predicción
-* Si queremos predecir el output dado un valor del input, digamos $X$, el modelo de regresión predice
-  $$
-  \hat \beta_0 + \hat \beta_1 X
-  $$
+---
 
-## Ejemplo: Base de datos `diamond` de la librería `UsingR` 
+## Ejemplo: Base de datos `diamond` (1)
 
-Los datos son:
+### Datos
 
 * Precio de los diamantes (en dólares de Singapur)
 * Peso de los diamantes (en quilates)
 * Quilate = medida estándar del peso de un diamante = 0,2 $g$
 * Para obtener los datos hay que usar `library(UsingR); data(diamond)`
 
+---
+
+## Ejemplo: Base de datos `diamond` (2)
+
 ### Gráfico
-```{r, echo = TRUE, fig.height=5,fig.width=5}
+```{r, echo = FALSE, fig.height=5,fig.width=5}
 library(UsingR)
 data(diamond)
 library(ggplot2)
@@ -115,6 +131,10 @@ g = g + geom_smooth(method = "lm", colour = "black")
 g
 ```
 
+---
+
+## Ejemplo: Base de datos `diamond` (3)
+
 ### Ajuste del modelo de regresión
 ```{r}
 fit <- lm(price ~ carat, data = diamond)
@@ -124,10 +144,11 @@ coef(fit)
 * Se estima un aumento esperado de `r round(coef(fit)[2], 2)` dólares de Singapur en el precio por un aumento de un quilate en el precio del diamante.
 * El intercepto `r round(coef(fit)[1], 2)` corresponde al precio esperado de un diamante de 0 quilates.
 
-Si se quiere información más detallada
-```{r}
-summary(fit)
-```
+Si se quiere información más detallada se usa `summary(fit)`
+
+---
+
+## Ejemplo: Base de datos `diamond` (4)
 
 ### Obtención de un intercepto interpretable
 Se puede escribir el modelo usando la desviación con respecto a la media ($X-\bar{X}$) como input.
@@ -137,6 +158,10 @@ coef(fit2)
 ```
 
 Entonces $`r round(coef(fit2)[1], 1)` es el precio esperado para un diamante de peso promedio que en el caso de los datos corresponde a `r mean(diamond$carat)` quilates.
+
+---
+
+## Ejemplo: Base de datos `diamond` (5)
 
 ### Cambio de escala
 * Un incremento de 1 quilate es muy grande, ¿qué se esperaría si el peso aumenta 1/10 quilates?
@@ -148,24 +173,34 @@ fit3 <- lm(price ~ I(carat * 10), data = diamond)
 coef(fit3)
 ```
 
+---
+
+## Ejemplo: Base de datos `diamond` (5)
+
 ### Predicción del precio de un diamante
 
-Supongamos que tenemos tres diamantes cuyos pesos son 0.16, 0,27 y 0,34 quilates. Estos serán los nuevos $X$ aparte de los $X$ que ya están en la base de datos. Entonces la estimación de su precio se obtiene de la siguiente forma:
-```{r, echo = TRUE}
+Supongamos que tenemos tres diamantes cuyos pesos son 0.16, 0,27 y 0,34 quilates. La estimación de su precio se obtiene de la siguiente forma:
+```{r, echo = TRUE, eval=FALSE}
 newx <- c(0.16, 0.27, 0.34)
 coef(fit)[1] + coef(fit)[2] * newx
 predict(fit, newdata = data.frame(carat = newx))
-newy <- coef(fit)[1] + newx + coef(fit)[2] * newx
 ```
+```{r, echo = TRUE}
+predict(fit, newdata = data.frame(carat = newx))
+```
+
+---
+
+## Ejemplo: Base de datos `diamond` (6)
 
 ### Gráfico para interpretar la regresión
 
-* Valores observados de los $X$ de la base de datos $\rightarrow$ color azul
+<!-- * Valores observados de los $X$ de la base de datos $\rightarrow$ color azul
 * Valores esperados de los $X$ de la base de datos $\rightarrow$ color rojo
-* Valores estimados de los $X$ nuevos (los 3 diamantes de la parte anterior) $\rightarrow$ líneas rectas
-
-```{r, echo = TRUE, fig.height=5,fig.width=5}
+* Valores estimados de los $X$ nuevos (los 3 diamantes de la parte anterior) $\rightarrow$  líneas rectas -->
+```{r, echo = FALSE, fig.height=5,fig.width=5}
 data(diamond)
+newy <- coef(fit)[1] + newx + coef(fit)[2] * newx
 plot(diamond$carat, diamond$price,  
      xlab = "Peso (quilates)", 
      ylab = "Precio (dolares de Singapur)", 
@@ -187,24 +222,33 @@ text(newx, rep(220, 3), labels = newx, pos = 4)
 text(rep(0.12,3), round(newy, digits=2), labels =  round(newy, digits=2), pos = 3)
 ```
 
-# Regresión usando ANOVA
+---
+
+## Regresión usando ANOVA (1)
 
 Usaremos la base de datos `mtcars` que viene en la librería `datasets`. Analizaremos cuál o cuáles variables nos permiten predecir la variable MPG (millas por galón) dado un conjunto de datos (rendimiento, peso, transmisión, etc) de varios modelos de automóviles.
 
 Para ver las variables de esta base de datos hacemos lo siguiente:
-```{r, echo=TRUE}
+```{r, echo=TRUE, eval=FALSE}
 library(datasets) #This library provides free databases
 data(mtcars) #The database I will use
 str(mtcars) #str displays variables names and displays basic information
 ```
+ANOVA explica las fuentes de variabilidad, es decir que puede ayudar a determinar cuáles son las variables que tienen efectos significativos estadísticamente hablando.
 
-ANOVA explica las fuentes de variabilidad, es decir que puede ayudar a determinar cuáles son las variables que tienen efectos significativos estadísticamente hablando. De acuerdo a Wikipedia: "En su forma más simple, ANOVA provee un test estadístico que permite determinar si las medias de varios grupos son iguales".
+---
 
-Ahora aplicamos ANOVA para determinar los efectos de todas las variables sobre MPG en el contexto de un modelo lineal.
-```{r}
-analysis <- aov(mpg ~ ., data = mtcars) #I run ANOVA
-summary(analysis) #this returns a summary containing relevant statistics
+## Regresión usando ANOVA (2)
+
+ANOVA permite determinar los efectos de todas las variables sobre MPG en el contexto de un modelo lineal. Usando `analysis <- aov(mpg ~ ., data = mtcars); summary(analysis)`
+```{r, echo=FALSE}
+analysis <- aov(mpg ~ ., data = mtcars) 
+summary(analysis)
 ```
+
+---
+
+## Regresión usando ANOVA (3)
 
 ### Modelo 1
 
@@ -214,8 +258,12 @@ MPG_i = \beta_0 + \beta_1 CYL_i + \beta_2 DISP_i + \beta_3 WT_i + \beta_4 AM_i +
 $$
 ```{r}
 fit1 <- lm(mpg ~ cyl + disp + wt + am, data = mtcars)
-summary(fit1)
+coefficients(fit1)
 ```
+
+---
+
+## Regresión usando ANOVA (4)
 
 ### Modelo 2
 
@@ -225,15 +273,16 @@ MPG_i = \beta_0 + \beta_1 CYL_i + \beta_2 WT_i + \beta_3 AM_i + \varepsilon_i
 $$
 ```{r}
 fit2 <- lm(mpg ~ cyl + wt + am, data = mtcars)
-summary(fit2)
+coefficients(fit2)
 ```
 
-# Ejercicio
+---
+
+## Ejercicio
 
 Escriba un informe de no más de 2 páginas junto a su grupo de trabajo (los mismos del proyecto de curso) en el que se responda claramente:
  
 * ¿Cuáles son las variables más importantes para explicar la variable MPG en distintos modelos de automóviles?
-* ¿Cuál es el efecto de las variables más importantes sobre la varible MPG? De una interpretación simple de cada una de las variables (e.g. si la variable $X_j$ aumenta en $a$ unidades se espera que la variable $Y$ aumente/disminuya $b$ unidades)
 * ¿Cuál de los dos modelos de la parte anterior es mejor y por qué?
 * ¿Se puede decir que la variable AM (tipo de transmisión) explica la variable MPG en distintos modelos de automóviles? 
 * Comente los alcances y limitaciones del modelo en base a los datos disponibles y los supuestos de OLS
