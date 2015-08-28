@@ -297,16 +297,22 @@ predict(fit, newdata = data.frame(carat = newx))
     <h2>Regresión usando ANOVA (1)</h2>
   </hgroup>
   <article data-timings="">
-    <p>Usaremos la base de datos <code>mtcars</code> que viene en la librería <code>datasets</code>. Analizaremos cuál o cuáles variables nos permiten predecir la variable MPG (millas por galón) dado un conjunto de datos (rendimiento, peso, transmisión, etc) de varios modelos de automóviles.</p>
+    <p>Preguntas: </p>
 
-<p>Para ver las variables de esta base de datos hacemos lo siguiente:</p>
+<ul>
+<li>¿Es más económico un automóvil automático o uno mecánico?</li>
+<li>¿Qué variables pueden explicar el rendimiento de un automóvil?</li>
+</ul>
 
-<pre><code class="r">library(datasets) #This library provides free databases
-data(mtcars) #The database I will use
-str(mtcars) #str displays variables names and displays basic information
+<p>Usaremos la base de datos <code>mtcars</code> que viene en la librería <code>datasets</code>. La base contiene información sobre el rendimiento (millas por galón) y características (peso, transmisión, cilindros, etc ) de varios modelos de automóviles.</p>
+
+<p>Para ver las variables de la base de datos:</p>
+
+<pre><code class="r">library(datasets) 
+data(mtcars) 
+str(mtcars)
+head(mtcars, n=5)
 </code></pre>
-
-<p>ANOVA explica las fuentes de variabilidad, es decir que puede ayudar a determinar cuáles son las variables que tienen efectos significativos estadísticamente hablando.</p>
 
   </article>
   <!-- Presenter Notes -->
@@ -317,7 +323,7 @@ str(mtcars) #str displays variables names and displays basic information
     <h2>Regresión usando ANOVA (2)</h2>
   </hgroup>
   <article data-timings="">
-    <p>ANOVA permite determinar los efectos de todas las variables sobre MPG en el contexto de un modelo lineal. Usando <code>analysis &lt;- aov(mpg ~ ., data = mtcars); summary(analysis)</code></p>
+    <p>ANOVA explica las fuentes de variabilidad. Para evaluar la interacción de <code>mpg</code> con las demás variables usamos <code>analysis &lt;- aov(mpg ~ ., data = mtcars); summary(analysis)</code></p>
 
 <pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 cyl          1  817.7   817.7 116.425 5.03e-10 ***
@@ -368,6 +374,32 @@ coefficients(fit1)
     <h2>Regresión usando ANOVA (4)</h2>
   </hgroup>
   <article data-timings="">
+    <h3>Modelo 1</h3>
+
+<p>Usando <code>summary(fit1)</code></p>
+
+<pre><code>Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 40.898313   3.601540  11.356 8.68e-12 ***
+cyl         -1.784173   0.618192  -2.886  0.00758 ** 
+disp         0.007404   0.012081   0.613  0.54509    
+wt          -3.583425   1.186504  -3.020  0.00547 ** 
+am           0.129066   1.321512   0.098  0.92292    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+</code></pre>
+
+<p>\(\Rightarrow\) no se debe incluir la variable <code>disp</code>.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Regresión usando ANOVA (5)</h2>
+  </hgroup>
+  <article data-timings="">
     <h3>Modelo 2</h3>
 
 <p>Estimaremos el siguiente modelo considerando la significancia de las variables:
@@ -387,7 +419,7 @@ coefficients(fit2)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-16" style="background:;">
+<slide class="" id="slide-17" style="background:;">
   <hgroup>
     <h2>Ejercicio</h2>
   </hgroup>
@@ -508,8 +540,14 @@ coefficients(fit2)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=16 title='Ejercicio'>
+        data-slide=16 title='Regresión usando ANOVA (5)'>
          16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Ejercicio'>
+         17
       </a>
     </li>
   </ul>

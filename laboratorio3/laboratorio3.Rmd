@@ -226,21 +226,26 @@ text(rep(0.12,3), round(newy, digits=2), labels =  round(newy, digits=2), pos = 
 
 ## Regresión usando ANOVA (1)
 
-Usaremos la base de datos `mtcars` que viene en la librería `datasets`. Analizaremos cuál o cuáles variables nos permiten predecir la variable MPG (millas por galón) dado un conjunto de datos (rendimiento, peso, transmisión, etc) de varios modelos de automóviles.
+Preguntas: 
 
-Para ver las variables de esta base de datos hacemos lo siguiente:
+* ¿Es más económico un automóvil automático o uno mecánico?
+* ¿Qué variables pueden explicar el rendimiento de un automóvil?
+
+Usaremos la base de datos `mtcars` que viene en la librería `datasets`. La base contiene información sobre el rendimiento (millas por galón) y características (peso, transmisión, cilindros, etc ) de varios modelos de automóviles.
+
+Para ver las variables de la base de datos:
 ```{r, echo=TRUE, eval=FALSE}
-library(datasets) #This library provides free databases
-data(mtcars) #The database I will use
-str(mtcars) #str displays variables names and displays basic information
+library(datasets) 
+data(mtcars) 
+str(mtcars)
+head(mtcars, n=5)
 ```
-ANOVA explica las fuentes de variabilidad, es decir que puede ayudar a determinar cuáles son las variables que tienen efectos significativos estadísticamente hablando.
 
 ---
 
 ## Regresión usando ANOVA (2)
 
-ANOVA permite determinar los efectos de todas las variables sobre MPG en el contexto de un modelo lineal. Usando `analysis <- aov(mpg ~ ., data = mtcars); summary(analysis)`
+ANOVA explica las fuentes de variabilidad. Para evaluar la interacción de `mpg` con las demás variables usamos `analysis <- aov(mpg ~ ., data = mtcars); summary(analysis)`
 ```{r, echo=FALSE}
 analysis <- aov(mpg ~ ., data = mtcars) 
 summary(analysis)
@@ -264,6 +269,26 @@ coefficients(fit1)
 ---
 
 ## Regresión usando ANOVA (4)
+
+### Modelo 1
+
+Usando `summary(fit1)`
+```
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 40.898313   3.601540  11.356 8.68e-12 ***
+cyl         -1.784173   0.618192  -2.886  0.00758 ** 
+disp         0.007404   0.012081   0.613  0.54509    
+wt          -3.583425   1.186504  -3.020  0.00547 ** 
+am           0.129066   1.321512   0.098  0.92292    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+```
+ $\Rightarrow$ no se debe incluir la variable `disp`.
+
+---
+
+## Regresión usando ANOVA (5)
 
 ### Modelo 2
 
