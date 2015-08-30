@@ -317,3 +317,13 @@ coefficients(lmBoth)
 hunger$Year:hunger$SexMale 
                -0.03139868 
 ```
+
+---
+
+## Ejercicio
+
+Usando la encuesta <a href="http://pachamaltese.github.io/analisis-de-datos-unab/laboratorio4/casen2013.dta.zip">CASEN 2013</a> estime un modelo log-lineal
+$$ 
+\log(y_i) = \beta_0 + \sum_{i=1}^n \beta_i x_i + \varepsilon_i
+$$
+que permita predecir el salario por hora de una persona en función de las variables sexo, escolaridad, experiencia laboral y si la persona reside en la Región Metropolitana. Extienda los resultados de su regresión a la población del país.
