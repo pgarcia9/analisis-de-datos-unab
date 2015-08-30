@@ -24,8 +24,6 @@ data <- casen
 keep <- c("expr", "yoprcor", "edad", "esc", "sexo", "region", "rama1", "o10")
 data <- data[keep]
 
-data <- rename(data, c("expr"="pondera"))
-
 data <- data[data$o10 > 30,]
 data$WHP <- (data$yoprcor*12)/(data$o10*52)
 data$logWHP <- log(data$WHP)
@@ -59,4 +57,4 @@ data <- data[complete.cases(data),]
 
 summary(lm(logWHP ~ sexo + esc + exp + exp2 + metropolitana + admpublica, data = data))
 
-summary(lm(logWHP ~ sexo + esc + exp + exp2 + metropolitana + admpublica, data = data, weights = pondera))
+summary(lm(logWHP ~ sexo + esc + exp + exp2 + metropolitana + admpublica, data = data, weights = expr))
