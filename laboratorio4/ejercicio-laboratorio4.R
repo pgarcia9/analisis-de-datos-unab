@@ -10,7 +10,6 @@ list.files()
 
 library(foreign)
 library(plyr)
-library(dummy)
 
 unzip("casen2013.dta.zip")
 casen <- read.dta("casen2013.dta")
