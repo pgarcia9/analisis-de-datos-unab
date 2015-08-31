@@ -326,4 +326,36 @@ Usando la encuesta <a href="http://pachamaltese.github.io/analisis-de-datos-unab
 $$ 
 \log(y_i) = \beta_0 + \sum_{i=1}^n \beta_i x_i + \varepsilon_i
 $$
-que permita predecir el salario por hora de las personas de entre 35 y 45 años en función de las variables sexo, escolaridad, experiencia laboral, si la persona reside en la Región Metropolitana y si trabaja en la Administración Pública. Extienda los resultados de su regresión a la población del país.
+que permita predecir el salario por hora de los profesionales chilenos de entre 35 y 45 años. Considere como regresores las variables:
+ 
+* Sexo
+* Experiencia laboral
+* Si la persona reside en la Región Metropolitana
+* Si trabaja en la Administración Pública
+
+Extienda los resultados de su regresión a la población del país.
+
+---
+
+## Desarrollo Ejercicio (1)
+
+Estimadores para la población (población = país)
+
+```
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  7.5348155  0.0889943   84.67   <2e-16 ***
+sexomujer   -0.2591384  0.0096771  -26.78   <2e-16 ***
+esc          0.1346419  0.0021693   62.07   <2e-16 ***
+exp         -0.1681013  0.0066858  -25.14   <2e-16 ***
+exp2         0.0038441  0.0001431   26.86   <2e-16 ***
+r13          0.1953442  0.0096526   20.24   <2e-16 ***
+sl           0.2222964  0.0204180   10.89   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 5.793 on 18174 degrees of freedom
+Multiple R-squared:  0.371,	Adjusted R-squared:  0.3708 
+F-statistic:  1787 on 6 and 18174 DF,  p-value: < 2.2e-16
+```
+
+El desarrollo cuenta con un <a href="http://pachamaltese.github.io/analisis-de-datos-unab/laboratorio4/ejercicio-laboratorio4.R">código</a> y un archivo <a href="http://pachamaltese.github.io/analisis-de-datos-unab/laboratorio4/renombrar-niveles.xlsx">Excel</a>.
