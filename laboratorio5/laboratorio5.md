@@ -63,7 +63,7 @@ Examine las variables de la base de datos `appleProdFr86` y en base a estos dato
 * Lineal: $$y = \beta_0 + \sum_i \beta_i x_i$$
 * Cuadrática: $$y = \beta_0 + \sum_i \beta_i x_i + \frac{1}{2} \sum_i \sum_j \beta_{ij} x_i x_j$$
 
-Luego obtenga una predicción del output, la razón técnica de sustitución de factores y finalmente determine cual de las dos funciones es más adecuada para representar la relación entre los inputs y el output.
+Testee la correlación lineal entre los inputs y el output, obtenga una predicción del output, obtenga la razón técnica de sustitución de factores y finalmente determine cual de las dos funciones es más adecuada para representar la relación entre los inputs y el output.
 
 ---
 
