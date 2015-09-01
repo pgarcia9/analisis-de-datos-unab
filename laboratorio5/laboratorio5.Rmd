@@ -1,0 +1,90 @@
+---
+title: "Laboratorio Nº5"
+subtitle: Análisis de Datos
+author: "Mauricio Vargas"
+highlighter: highlight.js
+job: Universidad Nacional Andrés Bello
+logo        : logounab.png
+hitheme: tomorrow
+framework: io2012
+url:
+  assets: ../assets
+  lib: ../libraries
+widgets: mathjax
+mode        : selfcontained # {standalone, draft}
+<!-- knit : slidify::knit2slides --> 
+knit : slidify::knit2slides
+---
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+library(knitr)
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+## Parte 1
+
+## Estimación por ML
+
+---
+
+## Ejercicio 1
+
+Obtenga una expresión algebraica para la media y la varianza de una distribución normal con media desconocida y varianza conocida
+$$
+f_n (x|\mu) = \frac{1}{(2\pi\sigma^2)^{n/2}} \exp\left[-\frac{1}{2\sigma^2}\sum_{i=1}^n (x_i - \mu)^2 \right]
+$$
+usando ML.
+
+---
+
+## Ejercicio 2
+
+Obtenga una expresión algebraica para la media y la varianza de una distribución normal con media y varianza desconocidas
+$$
+f_n (x|\mu) = \frac{1}{(2\pi\sigma^2)^{n/2}} \exp\left[-\frac{1}{2\sigma^2}\sum_{i=1}^n (x_i - \mu)^2 \right]
+$$
+usando ML.
+
+---
+
+## Ejercicio 3
+
+Genere 1000 observaciones a partir de una distribución normal con media 3 y desviación estándar 2 y luego estime la media y la varianza de la distribución inicial usando ML.
+
+---
+
+## Parte 2
+
+## Estimación de funciones lineales y no lineales por OLS
+
+---
+
+## Ejercicio 1
+
+Examine las variables de la base de datos `appleProdFr86` y en base a estos datos estime los parámetros de las siguientes funciones de producción:
+
+* Lineal: $$y = \beta_0 + \sum_i \beta_i x_i$$
+* Cuadrática: $$y = \beta_0 + \sum_i \beta_i x_i + \frac{1}{2} \sum_i \sum_j \beta_{ij} x_i x_j$$
+
+Luego obtenga una predicción del output, la razón técnica de sustitución de factores y finalmente determine cual de las dos funciones es más adecuada para representar la relación entre los inputs y el output.
+
+---
+
+## Ejercicio 2
+
+Replique el procedimiento del ejercicio anterior para las siguientes funciones de producción:
+
+* Cobb-Douglas: $$y = A \prod_i x_i^{\beta_i} $$
+* Translogarítmica: $$\ln y = \beta_0 + \sum_i \alpha_i \ln x_i + \frac{1}{2} \sum_i \sum_j \beta_{ij} \ln x_i \ln x_j$$
