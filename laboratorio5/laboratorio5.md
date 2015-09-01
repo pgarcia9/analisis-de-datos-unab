@@ -2,15 +2,15 @@
 title: "Laboratorio Nº5"
 subtitle: Análisis de Datos
 author: "Mauricio Vargas"
-highlighter: highlight.js
 job: Universidad Nacional Andrés Bello
-logo        : logounab.png
+logo: logounab.png
 hitheme: tomorrow
 framework: io2012
+highlighter: highlight.js
+widgets: mathjax
 url:
   assets: ../assets
   lib: ../libraries
-widgets: mathjax
 mode        : selfcontained # {standalone, draft}
 <!-- knit : slidify::knit2slides --> 
 knit : slidify::knit2slides
